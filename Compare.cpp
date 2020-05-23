@@ -52,51 +52,51 @@ void Input_Array(Array &a, int x) {
   }
 }
 // them vao bat ky vi tri nao
-void Add_into_any_position(Array& a, int x, int pos) {
-    if (a.capacity > a.n) {
-        for (int i = a.n; i > pos; i--) {
-            a.arr[i] = a.arr[i - 1];
-        }
-        a.arr[pos] = x;
-        ++a.n;
+void Add_into_any_position(Array &a, int x, int pos) {
+  if (a.capacity > a.n) {
+    for (int i = a.n; i > pos; i--) {
+      a.arr[i] = a.arr[i - 1];
     }
-    else {
-        a.capacity = a.n;
-        ++a.capacity;
-        int* b = new int[++a.capacity];
-        for (int i = 0; i < pos; i++) {
-            b[i] = a.arr[i];
-        }
-        b[pos] = x;
-        for (int i = pos + 1; i <= a.n; i++) {
-            b[i] = a.arr[i - 1];
-        }
-        delete a.arr;
-        a.arr = b;
-        ++a.n;
+    a.arr[pos] = x;
+    ++a.n;
+  } else {
+    a.capacity = a.n;
+    ++a.capacity;
+    int *b = new int[++a.capacity];
+    for (int i = 0; i < pos; i++) {
+      b[i] = a.arr[i];
     }
+    b[pos] = x;
+    for (int i = pos + 1; i <= a.n; i++) {
+      b[i] = a.arr[i - 1];
+    }
+    delete a.arr;
+    a.arr = b;
+    ++a.n;
+  }
 }
 // xoa vi tri bat ky
-void Delete_any_position(Array& a, int pos) {
-    if (pos == a.n - 1) {
-        int* b = new int[a.n - 1];
-        for (int i = 0; i < a.n - 1; i++) {
-            b[i] = a.arr[i];
-        }
-        delete a.arr;
-        a.arr = b;
-        a.n -= 1;
-        return;
+void Delete_any_position(Array &a, int pos) {
+  if (pos == a.n - 1) {
+    int *b = new int[a.n - 1];
+    for (int i = 0; i < a.n - 1; i++) {
+      b[i] = a.arr[i];
     }
-    if (a.n == 0);
-    else {
-        if (pos < a.n) {
-            for (int i = pos; i < a.n - 1; i++) {
-                a.arr[i] = a.arr[i + 1];
-            }
-            a.n--;
-        }
+    delete a.arr;
+    a.arr = b;
+    a.n -= 1;
+    return;
+  }
+  if (a.n == 0)
+    ;
+  else {
+    if (pos < a.n) {
+      for (int i = pos; i < a.n - 1; i++) {
+        a.arr[i] = a.arr[i + 1];
+      }
+      a.n--;
     }
+  }
 }
 // tra ve so luong phan tu cua mang
 int DemSoLuongPhanTu(Array a) { return a.n; }
@@ -123,7 +123,6 @@ void SelectionSort_arr(Array &a) {
     for (j = i + 1; j < a.n; j++)
       if (a.arr[j] < a.arr[min_idx]) min_idx = j;
 
-    // Swap the found minimum element with the first element
     swap(a.arr[min_idx], a.arr[i]);
   }
 }
@@ -164,6 +163,7 @@ void Copy(Array a, Array &b) {
   init_array(b);
   b.n = a.n;
   b.capacity = a.capacity;
+  b.arr = new int[b.n];
   for (int i = 0; i < b.n; i++) {
     b.arr[i] = a.arr[i];
   }
@@ -335,16 +335,16 @@ Node *Find_Node(List &l, int value) {
   }
   return nullptr;
 }
-Node* Findnode2(List& l, int pos) {
-    if (l.head == nullptr) {
-        return NULL;
-    }
-    int m = 0;
-    for (Node* i = l.head; i != NULL; i = i->next) {
-        m += 1;
-        if (m == pos) return i;
-    }
+Node *Findnode2(List &l, int pos) {
+  if (l.head == nullptr) {
     return NULL;
+  }
+  int m = 0;
+  for (Node *i = l.head; i != NULL; i = i->next) {
+    m += 1;
+    if (m == pos) return i;
+  }
+  return NULL;
 }
 int Find_Value_at_Index(List &l, int index) {
   int count = 0;
@@ -499,6 +499,7 @@ void Copy(List &l, List &l2) {
     pNode1 = pNode1->next;
   }
 }
+
 // cac thao tac kiem tra
 void Dao_Nguoc(List &l) {
   Node *next, *temp, *pNode;
