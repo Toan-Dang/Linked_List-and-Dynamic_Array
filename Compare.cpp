@@ -195,7 +195,7 @@ int DemMangTang(Array a) {
   return count;
 }
 // kiem tra mang con
-
+int find_index(Array a, int index) { return a.arr[index]; }
 bool is_MangCon(Array a, Array b) {
   int l1_count = 0, l2_count = 0;
   int i = 0, j = 0;
